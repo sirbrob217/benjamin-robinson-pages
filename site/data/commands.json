@@ -1,0 +1,1503 @@
+{
+  "schema_version": 1,
+  "generated_from": "v3.1.0",
+  "server_aliases": [
+    {
+      "key": "all-installed-servers",
+      "alias": "All installed servers",
+      "icon": "assets/servers/all-installed-servers.svg"
+    },
+    {
+      "key": "eternal-defiance",
+      "alias": "Eternal Defiance",
+      "icon": "assets/servers/eternal-defiance.jpg"
+    },
+    {
+      "key": "the-boys",
+      "alias": "The Boys™",
+      "icon": "assets/servers/the-boys.gif"
+    },
+    {
+      "key": "wednesday-gang",
+      "alias": "Wednesday Gang",
+      "icon": "assets/servers/wednesday-gang.png"
+    }
+  ],
+  "commands": [
+    {
+      "path": "Remind Me",
+      "name": "Remind Me",
+      "category": "Reminders",
+      "description": "Create a reminder from an existing Discord message.",
+      "permission": "user",
+      "availability": "Discord servers where Ulfgar Bot is installed",
+      "server_keys": [
+        "all-installed-servers"
+      ],
+      "type": "message",
+      "options": [],
+      "subcommands": [],
+      "details": "Open a message’s Apps menu and choose Remind Me to create a one-time reminder."
+    },
+    {
+      "path": "misc",
+      "name": "/misc",
+      "category": "General",
+      "description": "General utility and entertainment commands.",
+      "permission": "user",
+      "availability": "Selected Discord servers",
+      "server_keys": [
+        "the-boys",
+        "wednesday-gang"
+      ],
+      "type": "chat_input",
+      "options": [],
+      "subcommands": [
+        {
+          "path": "misc/changelog",
+          "name": "/misc changelog",
+          "category": "General",
+          "description": "retrieve the bot changelog",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "version",
+              "description": "version of the changelog to retrieve",
+              "type": "string",
+              "required": false
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "misc/dad_jokes",
+          "name": "/misc dad_jokes",
+          "category": "General",
+          "description": "Get the dad joke scores.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
+        {
+          "path": "misc/quote",
+          "name": "/misc quote",
+          "category": "General",
+          "description": "save a quote for posterity",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "text",
+              "description": "text of the quote",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "author",
+              "description": "author of the quote",
+              "type": "string",
+              "required": false
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "misc/roll",
+          "name": "/misc roll",
+          "category": "General",
+          "description": "roll 1d100",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
+        {
+          "path": "misc/server_icon",
+          "name": "/misc server_icon",
+          "category": "General",
+          "description": "Get the link to today's server icon.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
+        {
+          "path": "misc/server_banner",
+          "name": "/misc server_banner",
+          "category": "General",
+          "description": "Get the link to today's server banner.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        }
+      ],
+      "details": "Everyday utility and entertainment commands."
+    },
+    {
+      "path": "recurring_event",
+      "name": "/recurring_event",
+      "category": "Recurring Events",
+      "description": "Manage weekly event announcements and reminder subscriptions.",
+      "permission": "mixed",
+      "availability": "Selected Discord servers",
+      "server_keys": [
+        "the-boys",
+        "eternal-defiance"
+      ],
+      "type": "chat_input",
+      "options": [],
+      "subcommands": [
+        {
+          "path": "recurring_event/create",
+          "name": "/recurring_event create",
+          "category": "Recurring Events",
+          "description": "Create a weekly recurring event.",
+          "permission": "admin",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "eternal-defiance"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "name",
+              "description": "Schedule name",
+              "type": "string",
+              "required": true,
+              "max_length": 100
+            },
+            {
+              "name": "message",
+              "description": "Announcement and DM message",
+              "type": "string",
+              "required": true,
+              "max_length": 1900
+            },
+            {
+              "name": "weekday",
+              "description": "Event weekday",
+              "type": "string",
+              "required": true,
+              "choices": [
+                {
+                  "name": "Sunday",
+                  "value": "0"
+                },
+                {
+                  "name": "Monday",
+                  "value": "1"
+                },
+                {
+                  "name": "Tuesday",
+                  "value": "2"
+                },
+                {
+                  "name": "Wednesday",
+                  "value": "3"
+                },
+                {
+                  "name": "Thursday",
+                  "value": "4"
+                },
+                {
+                  "name": "Friday",
+                  "value": "5"
+                },
+                {
+                  "name": "Saturday",
+                  "value": "6"
+                }
+              ]
+            },
+            {
+              "name": "event_hour",
+              "description": "Event hour (0-23)",
+              "type": "integer",
+              "required": true,
+              "min_value": 0,
+              "max_value": 23
+            },
+            {
+              "name": "event_minute",
+              "description": "Event minute (0-59)",
+              "type": "integer",
+              "required": true,
+              "min_value": 0,
+              "max_value": 59
+            },
+            {
+              "name": "timezone",
+              "description": "Event timezone",
+              "type": "string",
+              "required": true,
+              "choices": [
+                {
+                  "name": "Eastern",
+                  "value": "America/New_York"
+                },
+                {
+                  "name": "Central",
+                  "value": "America/Chicago"
+                },
+                {
+                  "name": "Mountain",
+                  "value": "America/Denver"
+                },
+                {
+                  "name": "Arizona",
+                  "value": "America/Phoenix"
+                },
+                {
+                  "name": "Pacific",
+                  "value": "America/Los_Angeles"
+                },
+                {
+                  "name": "Alaska",
+                  "value": "America/Anchorage"
+                }
+              ]
+            },
+            {
+              "name": "announcement_channel",
+              "description": "Announcement channel",
+              "type": "channel",
+              "required": true
+            },
+            {
+              "name": "post_hour",
+              "description": "Announcement hour (default 9)",
+              "type": "integer",
+              "required": false,
+              "min_value": 0,
+              "max_value": 23
+            },
+            {
+              "name": "post_minute",
+              "description": "Announcement minute (default 0)",
+              "type": "integer",
+              "required": false,
+              "min_value": 0,
+              "max_value": 59
+            },
+            {
+              "name": "dm_lead_minutes",
+              "description": "DM lead time (default 15)",
+              "type": "integer",
+              "required": false,
+              "min_value": 1,
+              "max_value": 30
+            },
+            {
+              "name": "image_url",
+              "description": "Optional HTTPS embed image",
+              "type": "string",
+              "required": false,
+              "max_length": 2048
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "recurring_event/list",
+          "name": "/recurring_event list",
+          "category": "Recurring Events",
+          "description": "List manageable recurring events.",
+          "permission": "admin",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "eternal-defiance"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
+        {
+          "path": "recurring_event/show",
+          "name": "/recurring_event show",
+          "category": "Recurring Events",
+          "description": "Show recurring event details.",
+          "permission": "admin",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "eternal-defiance"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "id",
+              "description": "Schedule ID",
+              "type": "string",
+              "required": true,
+              "min_length": 12,
+              "max_length": 12
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "recurring_event/update",
+          "name": "/recurring_event update",
+          "category": "Recurring Events",
+          "description": "Update a recurring event.",
+          "permission": "admin",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "eternal-defiance"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "id",
+              "description": "Schedule ID",
+              "type": "string",
+              "required": true,
+              "min_length": 12,
+              "max_length": 12
+            },
+            {
+              "name": "name",
+              "description": "Schedule name",
+              "type": "string",
+              "required": false,
+              "max_length": 100
+            },
+            {
+              "name": "message",
+              "description": "Announcement and DM message",
+              "type": "string",
+              "required": false,
+              "max_length": 1900
+            },
+            {
+              "name": "weekday",
+              "description": "Event weekday",
+              "type": "string",
+              "required": false,
+              "choices": [
+                {
+                  "name": "Sunday",
+                  "value": "0"
+                },
+                {
+                  "name": "Monday",
+                  "value": "1"
+                },
+                {
+                  "name": "Tuesday",
+                  "value": "2"
+                },
+                {
+                  "name": "Wednesday",
+                  "value": "3"
+                },
+                {
+                  "name": "Thursday",
+                  "value": "4"
+                },
+                {
+                  "name": "Friday",
+                  "value": "5"
+                },
+                {
+                  "name": "Saturday",
+                  "value": "6"
+                }
+              ]
+            },
+            {
+              "name": "event_hour",
+              "description": "Event hour (0-23)",
+              "type": "integer",
+              "required": false,
+              "min_value": 0,
+              "max_value": 23
+            },
+            {
+              "name": "event_minute",
+              "description": "Event minute (0-59)",
+              "type": "integer",
+              "required": false,
+              "min_value": 0,
+              "max_value": 59
+            },
+            {
+              "name": "timezone",
+              "description": "Event timezone",
+              "type": "string",
+              "required": false,
+              "choices": [
+                {
+                  "name": "Eastern",
+                  "value": "America/New_York"
+                },
+                {
+                  "name": "Central",
+                  "value": "America/Chicago"
+                },
+                {
+                  "name": "Mountain",
+                  "value": "America/Denver"
+                },
+                {
+                  "name": "Arizona",
+                  "value": "America/Phoenix"
+                },
+                {
+                  "name": "Pacific",
+                  "value": "America/Los_Angeles"
+                },
+                {
+                  "name": "Alaska",
+                  "value": "America/Anchorage"
+                }
+              ]
+            },
+            {
+              "name": "announcement_channel",
+              "description": "Announcement channel",
+              "type": "channel",
+              "required": false
+            },
+            {
+              "name": "post_hour",
+              "description": "Announcement hour (default 9)",
+              "type": "integer",
+              "required": false,
+              "min_value": 0,
+              "max_value": 23
+            },
+            {
+              "name": "post_minute",
+              "description": "Announcement minute (default 0)",
+              "type": "integer",
+              "required": false,
+              "min_value": 0,
+              "max_value": 59
+            },
+            {
+              "name": "dm_lead_minutes",
+              "description": "DM lead time (default 15)",
+              "type": "integer",
+              "required": false,
+              "min_value": 1,
+              "max_value": 30
+            },
+            {
+              "name": "image_url",
+              "description": "Optional HTTPS embed image",
+              "type": "string",
+              "required": false,
+              "max_length": 2048
+            },
+            {
+              "name": "enabled",
+              "description": "Enable or pause the schedule",
+              "type": "boolean",
+              "required": false
+            },
+            {
+              "name": "remove_image",
+              "description": "Remove the current image",
+              "type": "boolean",
+              "required": false
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "recurring_event/clone",
+          "name": "/recurring_event clone",
+          "category": "Recurring Events",
+          "description": "Clone a recurring event with overrides.",
+          "permission": "admin",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "eternal-defiance"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "id",
+              "description": "Source schedule ID",
+              "type": "string",
+              "required": true,
+              "min_length": 12,
+              "max_length": 12
+            },
+            {
+              "name": "name",
+              "description": "Schedule name",
+              "type": "string",
+              "required": false,
+              "max_length": 100
+            },
+            {
+              "name": "message",
+              "description": "Announcement and DM message",
+              "type": "string",
+              "required": false,
+              "max_length": 1900
+            },
+            {
+              "name": "weekday",
+              "description": "Event weekday",
+              "type": "string",
+              "required": false,
+              "choices": [
+                {
+                  "name": "Sunday",
+                  "value": "0"
+                },
+                {
+                  "name": "Monday",
+                  "value": "1"
+                },
+                {
+                  "name": "Tuesday",
+                  "value": "2"
+                },
+                {
+                  "name": "Wednesday",
+                  "value": "3"
+                },
+                {
+                  "name": "Thursday",
+                  "value": "4"
+                },
+                {
+                  "name": "Friday",
+                  "value": "5"
+                },
+                {
+                  "name": "Saturday",
+                  "value": "6"
+                }
+              ]
+            },
+            {
+              "name": "event_hour",
+              "description": "Event hour (0-23)",
+              "type": "integer",
+              "required": false,
+              "min_value": 0,
+              "max_value": 23
+            },
+            {
+              "name": "event_minute",
+              "description": "Event minute (0-59)",
+              "type": "integer",
+              "required": false,
+              "min_value": 0,
+              "max_value": 59
+            },
+            {
+              "name": "timezone",
+              "description": "Event timezone",
+              "type": "string",
+              "required": false,
+              "choices": [
+                {
+                  "name": "Eastern",
+                  "value": "America/New_York"
+                },
+                {
+                  "name": "Central",
+                  "value": "America/Chicago"
+                },
+                {
+                  "name": "Mountain",
+                  "value": "America/Denver"
+                },
+                {
+                  "name": "Arizona",
+                  "value": "America/Phoenix"
+                },
+                {
+                  "name": "Pacific",
+                  "value": "America/Los_Angeles"
+                },
+                {
+                  "name": "Alaska",
+                  "value": "America/Anchorage"
+                }
+              ]
+            },
+            {
+              "name": "announcement_channel",
+              "description": "Announcement channel",
+              "type": "channel",
+              "required": false
+            },
+            {
+              "name": "post_hour",
+              "description": "Announcement hour (default 9)",
+              "type": "integer",
+              "required": false,
+              "min_value": 0,
+              "max_value": 23
+            },
+            {
+              "name": "post_minute",
+              "description": "Announcement minute (default 0)",
+              "type": "integer",
+              "required": false,
+              "min_value": 0,
+              "max_value": 59
+            },
+            {
+              "name": "dm_lead_minutes",
+              "description": "DM lead time (default 15)",
+              "type": "integer",
+              "required": false,
+              "min_value": 1,
+              "max_value": 30
+            },
+            {
+              "name": "image_url",
+              "description": "Optional HTTPS embed image",
+              "type": "string",
+              "required": false,
+              "max_length": 2048
+            },
+            {
+              "name": "enabled",
+              "description": "Enable or pause the clone",
+              "type": "boolean",
+              "required": false
+            },
+            {
+              "name": "remove_image",
+              "description": "Remove the inherited image",
+              "type": "boolean",
+              "required": false
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "recurring_event/delete",
+          "name": "/recurring_event delete",
+          "category": "Recurring Events",
+          "description": "Delete a recurring event.",
+          "permission": "admin",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "eternal-defiance"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "id",
+              "description": "Schedule ID",
+              "type": "string",
+              "required": true,
+              "min_length": 12,
+              "max_length": 12
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "recurring_event/skip",
+          "name": "/recurring_event skip",
+          "category": "Recurring Events",
+          "description": "Cancel one weekly occurrence.",
+          "permission": "admin",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "eternal-defiance"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "id",
+              "description": "Schedule ID",
+              "type": "string",
+              "required": true,
+              "min_length": 12,
+              "max_length": 12
+            },
+            {
+              "name": "date",
+              "description": "Local date (YYYY-MM-DD)",
+              "type": "string",
+              "required": false,
+              "min_length": 10,
+              "max_length": 10
+            },
+            {
+              "name": "reason",
+              "description": "Short cancellation reason",
+              "type": "string",
+              "required": false,
+              "max_length": 200
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "recurring_event/restore",
+          "name": "/recurring_event restore",
+          "category": "Recurring Events",
+          "description": "Restore one cancelled occurrence.",
+          "permission": "admin",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "eternal-defiance"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "id",
+              "description": "Schedule ID",
+              "type": "string",
+              "required": true,
+              "min_length": 12,
+              "max_length": 12
+            },
+            {
+              "name": "date",
+              "description": "Local date (YYYY-MM-DD)",
+              "type": "string",
+              "required": true,
+              "min_length": 10,
+              "max_length": 10
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "recurring_event/subscriptions",
+          "name": "/recurring_event subscriptions",
+          "category": "Recurring Events",
+          "description": "List your persistent recurring-event reminders.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "eternal-defiance"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
+        {
+          "path": "recurring_event/unsubscribe",
+          "name": "/recurring_event unsubscribe",
+          "category": "Recurring Events",
+          "description": "Cancel your reminders for a schedule.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "eternal-defiance"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "id",
+              "description": "Schedule ID",
+              "type": "string",
+              "required": true,
+              "min_length": 12,
+              "max_length": 12
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "recurring_event/help",
+          "name": "/recurring_event help",
+          "category": "Recurring Events",
+          "description": "Explain recurring event reminders.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "eternal-defiance"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        }
+      ],
+      "details": "Manage weekly announcements and personal reminder subscriptions."
+    },
+    {
+      "path": "reminder",
+      "name": "/reminder",
+      "category": "Reminders",
+      "description": "Manage scheduled reminders.",
+      "permission": "user",
+      "availability": "Selected Discord servers",
+      "server_keys": [
+        "the-boys",
+        "wednesday-gang"
+      ],
+      "type": "chat_input",
+      "options": [],
+      "subcommands": [
+        {
+          "path": "reminder/create",
+          "name": "/reminder create",
+          "category": "Reminders",
+          "description": "Create a cron-based reminder.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "name",
+              "description": "Reminder name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "msg",
+              "description": "Reminder message",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "type",
+              "description": "Reminder type",
+              "type": "string",
+              "required": true,
+              "choices": [
+                {
+                  "name": "message",
+                  "value": "message"
+                },
+                {
+                  "name": "embed",
+                  "value": "embed"
+                }
+              ]
+            },
+            {
+              "name": "storage",
+              "description": "Delete after sending?",
+              "type": "string",
+              "required": true,
+              "choices": [
+                {
+                  "name": "delete",
+                  "value": "true"
+                },
+                {
+                  "name": "keep",
+                  "value": "false"
+                }
+              ]
+            },
+            {
+              "name": "min",
+              "description": "Reminder minute",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "hour",
+              "description": "Reminder hour",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "day",
+              "description": "Reminder day (of the month)",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "month",
+              "description": "Reminder month",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "wday",
+              "description": "Reminder day (of the week)",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "timezone",
+              "description": "Reminder timezone",
+              "type": "string",
+              "required": false,
+              "choices": [
+                {
+                  "name": "Eastern",
+                  "value": "America/New_York"
+                },
+                {
+                  "name": "Central",
+                  "value": "America/Chicago"
+                },
+                {
+                  "name": "Mountain",
+                  "value": "America/Denver"
+                },
+                {
+                  "name": "Arizona",
+                  "value": "America/Phoenix"
+                },
+                {
+                  "name": "Pacific",
+                  "value": "America/Los_Angeles"
+                },
+                {
+                  "name": "Alaska",
+                  "value": "America/Anchorage"
+                }
+              ]
+            },
+            {
+              "name": "users",
+              "description": "Users to DM the reminder to",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "mention",
+              "description": "Role or user to remind",
+              "type": "mentionable",
+              "required": false
+            },
+            {
+              "name": "url",
+              "description": "Reminder image",
+              "type": "string",
+              "required": false
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "reminder/quick",
+          "name": "/reminder quick",
+          "category": "Reminders",
+          "description": "Create a one-time DM reminder.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "message",
+              "description": "Message to send back to you",
+              "type": "string",
+              "required": true,
+              "max_length": 1900
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "reminder/list",
+          "name": "/reminder list",
+          "category": "Reminders",
+          "description": "List reminders you can manage.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
+        {
+          "path": "reminder/show",
+          "name": "/reminder show",
+          "category": "Reminders",
+          "description": "Show reminder details.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "id",
+              "description": "Reminder ID",
+              "type": "integer",
+              "required": true
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "reminder/update",
+          "name": "/reminder update",
+          "category": "Reminders",
+          "description": "Update a reminder.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "id",
+              "description": "Reminder ID",
+              "type": "integer",
+              "required": true
+            },
+            {
+              "name": "name",
+              "description": "Reminder name",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "msg",
+              "description": "Reminder message",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "type",
+              "description": "Reminder type",
+              "type": "string",
+              "required": false,
+              "choices": [
+                {
+                  "name": "message",
+                  "value": "message"
+                },
+                {
+                  "name": "embed",
+                  "value": "embed"
+                }
+              ]
+            },
+            {
+              "name": "storage",
+              "description": "Delete after sending?",
+              "type": "string",
+              "required": false,
+              "choices": [
+                {
+                  "name": "delete",
+                  "value": "true"
+                },
+                {
+                  "name": "keep",
+                  "value": "false"
+                }
+              ]
+            },
+            {
+              "name": "min",
+              "description": "Reminder minute",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "hour",
+              "description": "Reminder hour",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "day",
+              "description": "Reminder day (of the month)",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "month",
+              "description": "Reminder month",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "wday",
+              "description": "Reminder day (of the week)",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "timezone",
+              "description": "Reminder timezone",
+              "type": "string",
+              "required": false,
+              "choices": [
+                {
+                  "name": "Eastern",
+                  "value": "America/New_York"
+                },
+                {
+                  "name": "Central",
+                  "value": "America/Chicago"
+                },
+                {
+                  "name": "Mountain",
+                  "value": "America/Denver"
+                },
+                {
+                  "name": "Arizona",
+                  "value": "America/Phoenix"
+                },
+                {
+                  "name": "Pacific",
+                  "value": "America/Los_Angeles"
+                },
+                {
+                  "name": "Alaska",
+                  "value": "America/Anchorage"
+                }
+              ]
+            },
+            {
+              "name": "users",
+              "description": "Users to DM the reminder to",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "mention",
+              "description": "Role or user to remind",
+              "type": "mentionable",
+              "required": false
+            },
+            {
+              "name": "url",
+              "description": "Reminder image",
+              "type": "string",
+              "required": false
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "reminder/delete",
+          "name": "/reminder delete",
+          "category": "Reminders",
+          "description": "Delete a reminder.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "id",
+              "description": "Reminder ID",
+              "type": "integer",
+              "required": true
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "reminder/help",
+          "name": "/reminder help",
+          "category": "Reminders",
+          "description": "Explain cron-based reminders.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        }
+      ],
+      "details": "Create one-time reminders or manage reusable schedules."
+    },
+    {
+      "path": "soundboard",
+      "name": "/soundboard",
+      "category": "Soundboard",
+      "description": "Commands for using the soundboard player.",
+      "permission": "user",
+      "availability": "Selected Discord servers",
+      "server_keys": [
+        "the-boys",
+        "wednesday-gang"
+      ],
+      "type": "chat_input",
+      "options": [],
+      "subcommands": [
+        {
+          "path": "soundboard/player",
+          "name": "/soundboard player",
+          "category": "Soundboard",
+          "description": "Open the soundboard player",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "channel",
+              "description": "Channel to play in",
+              "type": "channel",
+              "required": true
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "soundboard/stop",
+          "name": "/soundboard stop",
+          "category": "Soundboard",
+          "description": "Stop the soundboard player",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        }
+      ],
+      "details": "Open and control the interactive voice-channel soundboard."
+    },
+    {
+      "path": "threads",
+      "name": "/threads",
+      "category": "Thread Pins",
+      "description": "Commands for pinning threads.",
+      "permission": "user",
+      "availability": "Configured Discord servers",
+      "server_keys": [
+        "the-boys"
+      ],
+      "type": "chat_input",
+      "options": [],
+      "subcommands": [
+        {
+          "path": "threads/add",
+          "name": "/threads add",
+          "category": "Thread Pins",
+          "description": "Add threads to your pins",
+          "permission": "user",
+          "availability": "Configured Discord servers",
+          "server_keys": [
+            "the-boys"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
+        {
+          "path": "threads/list",
+          "name": "/threads list",
+          "category": "Thread Pins",
+          "description": "List your pinned threads",
+          "permission": "user",
+          "availability": "Configured Discord servers",
+          "server_keys": [
+            "the-boys"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
+        {
+          "path": "threads/remove",
+          "name": "/threads remove",
+          "category": "Thread Pins",
+          "description": "Remove threads from your pins",
+          "permission": "user",
+          "availability": "Configured Discord servers",
+          "server_keys": [
+            "the-boys"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        }
+      ],
+      "details": "Keep a personal list of Discord threads within easy reach."
+    },
+    {
+      "path": "wednesday",
+      "name": "/wednesday",
+      "category": "Wednesday",
+      "description": "Manage Wednesday scheduling and server icons",
+      "permission": "user",
+      "availability": "Configured Discord servers",
+      "server_keys": [
+        "wednesday-gang"
+      ],
+      "type": "chat_input",
+      "options": [],
+      "subcommands": [
+        {
+          "path": "wednesday/wednesday",
+          "name": "/wednesday wednesday",
+          "category": "Wednesday",
+          "description": "Apply the standard Wednesday server icon.",
+          "permission": "user",
+          "availability": "Configured Discord servers",
+          "server_keys": [
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
+        {
+          "path": "wednesday/notwednesday",
+          "name": "/wednesday notwednesday",
+          "category": "Wednesday",
+          "description": "Apply the not-Wednesday server icon.",
+          "permission": "user",
+          "availability": "Configured Discord servers",
+          "server_keys": [
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
+        {
+          "path": "wednesday/otherday",
+          "name": "/wednesday otherday",
+          "category": "Wednesday",
+          "description": "Apply the ordinary-day server icon.",
+          "permission": "user",
+          "availability": "Configured Discord servers",
+          "server_keys": [
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
+        {
+          "path": "wednesday/cancel_wednesday",
+          "name": "/wednesday cancel_wednesday",
+          "category": "Wednesday",
+          "description": "Cancel the next Wednesday occurrence.",
+          "permission": "user",
+          "availability": "Configured Discord servers",
+          "server_keys": [
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
+        {
+          "path": "wednesday/reschedule_wednesday",
+          "name": "/wednesday reschedule_wednesday",
+          "category": "Wednesday",
+          "description": "Move the next Wednesday occurrence to another weekday.",
+          "permission": "user",
+          "availability": "Configured Discord servers",
+          "server_keys": [
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "weekday",
+              "description": "Weekday to reschedule Wednesday to",
+              "type": "string",
+              "required": true,
+              "choices": [
+                {
+                  "name": "Sunday",
+                  "value": "0"
+                },
+                {
+                  "name": "Monday",
+                  "value": "1"
+                },
+                {
+                  "name": "Tuesday",
+                  "value": "2"
+                },
+                {
+                  "name": "Wednesday",
+                  "value": "3"
+                },
+                {
+                  "name": "Thursday",
+                  "value": "4"
+                },
+                {
+                  "name": "Friday",
+                  "value": "5"
+                },
+                {
+                  "name": "Saturday",
+                  "value": "6"
+                }
+              ]
+            }
+          ],
+          "subcommands": []
+        }
+      ],
+      "details": "Wednesday scheduling and server artwork controls."
+    }
+  ]
+}

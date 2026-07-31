@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#111827">
+    <meta
+      name="description"
+      content="Reference documentation for the public Ulfgar Bot command families and subcommands."
+    >
+    <title>Ulfgar Bot Command Reference</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <script src="assets/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to documentation</a>
+
+    <aside class="nav-panel" aria-label="Command family index">
+      <header class="nav-header">
+        <a class="project-name" href="./">Ulfgar Bot</a>
+        <span id="nav-version">Command reference</span>
+      </header>
+
+      <div class="nav-tabs" aria-hidden="true">
+        <strong>Reference Index</strong>
+      </div>
+
+      <div class="nav-search">
+        <label for="family-search">Search:</label>
+        <input id="family-search" type="search" autocomplete="off">
+      </div>
+
+      <div class="nav-filter">
+        <label for="server-filter">Available on:</label>
+        <select id="server-filter">
+          <option value="">All servers</option>
+        </select>
+      </div>
+
+      <nav>
+        <ul id="family-list" class="family-list" aria-busy="true"></ul>
+      </nav>
+    </aside>
+
+    <div class="document-panel">
+      <header class="toolbar">
+        <div id="breadcrumb" class="breadcrumb">
+          <a href="./">Index</a>
+        </div>
+        <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false">
+          Command families
+        </button>
+      </header>
+
+      <main id="content" tabindex="-1">
+        <section id="loading-state" class="notice">
+          <h1>Loading command reference…</h1>
+        </section>
+
+        <section id="error-state" class="notice notice--error" hidden>
+          <h1>The command reference could not be loaded</h1>
+          <p>Please refresh the page or report the problem in the site repository.</p>
+        </section>
+
+        <article id="documentation" hidden></article>
+      </main>
+
+      <footer>
+        <p id="footer-version">Generated command documentation</p>
+      </footer>
+    </div>
+  </body>
+</html>
