@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_from": "v3.1.0",
+  "generated_from": "v3.1.1",
   "server_aliases": [
     {
       "key": "all-installed-servers",
@@ -40,6 +40,21 @@
       "details": "Open a message’s Apps menu and choose Remind Me to create a one-time reminder."
     },
     {
+      "path": "help",
+      "name": "/help",
+      "category": "General",
+      "description": "Open the complete Ulfgar Bot command reference.",
+      "permission": "user",
+      "availability": "Discord servers where Ulfgar Bot is installed",
+      "server_keys": [
+        "all-installed-servers"
+      ],
+      "type": "chat_input",
+      "options": [],
+      "subcommands": [],
+      "details": "Links to the public reference for every documented command family."
+    },
+    {
       "path": "misc",
       "name": "/misc",
       "category": "General",
@@ -53,6 +68,21 @@
       "type": "chat_input",
       "options": [],
       "subcommands": [
+        {
+          "path": "misc/help",
+          "name": "/misc help",
+          "category": "General",
+          "description": "View help for miscellaneous commands.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
         {
           "path": "misc/changelog",
           "name": "/misc changelog",
@@ -850,7 +880,7 @@
           "path": "recurring_event/help",
           "name": "/recurring_event help",
           "category": "Recurring Events",
-          "description": "Explain recurring event reminders.",
+          "description": "View help for recurring event commands.",
           "permission": "user",
           "availability": "Selected Discord servers",
           "server_keys": [
@@ -1250,7 +1280,7 @@
           "path": "reminder/help",
           "name": "/reminder help",
           "category": "Reminders",
-          "description": "Explain cron-based reminders.",
+          "description": "View help for reminder commands.",
           "permission": "user",
           "availability": "Selected Discord servers",
           "server_keys": [
@@ -1278,6 +1308,21 @@
       "type": "chat_input",
       "options": [],
       "subcommands": [
+        {
+          "path": "soundboard/help",
+          "name": "/soundboard help",
+          "category": "Soundboard",
+          "description": "View help for soundboard commands.",
+          "permission": "user",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
         {
           "path": "soundboard/player",
           "name": "/soundboard player",
@@ -1331,6 +1376,20 @@
       "type": "chat_input",
       "options": [],
       "subcommands": [
+        {
+          "path": "threads/help",
+          "name": "/threads help",
+          "category": "Thread Pins",
+          "description": "View help for thread pin commands.",
+          "permission": "user",
+          "availability": "Configured Discord servers",
+          "server_keys": [
+            "the-boys"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
         {
           "path": "threads/add",
           "name": "/threads add",
@@ -1389,6 +1448,20 @@
       "type": "chat_input",
       "options": [],
       "subcommands": [
+        {
+          "path": "wednesday/help",
+          "name": "/wednesday help",
+          "category": "Wednesday",
+          "description": "View help for Wednesday commands.",
+          "permission": "user",
+          "availability": "Configured Discord servers",
+          "server_keys": [
+            "wednesday-gang"
+          ],
+          "type": "chat_input",
+          "options": [],
+          "subcommands": []
+        },
         {
           "path": "wednesday/wednesday",
           "name": "/wednesday wednesday",
