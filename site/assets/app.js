@@ -208,7 +208,6 @@ function commandGroups() {
       .sort(alphabetically),
     commandFamilies: commands
       .filter((command) => command.type === 'chat_input' && commandMatchesServer(command))
-      .sort(alphabetically)
   };
 }
 

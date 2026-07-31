@@ -46,6 +46,14 @@ if data['server_aliases'].is_a?(Array)
 end
 
 validate_commands = lambda do |commands, parent_path = nil|
+  help_index = commands.index do |command|
+    command.is_a?(Hash) && command['path'].to_s.split('/').last == 'help'
+  end
+  if help_index && help_index != commands.length - 1
+    location = parent_path || 'commands'
+    errors << "#{location} must place help last"
+  end
+
   commands.each_with_index do |command, index|
     location = parent_path || "commands[#{index}]"
     unless command.is_a?(Hash)
