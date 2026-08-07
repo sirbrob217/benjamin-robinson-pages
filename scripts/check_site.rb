@@ -1,5 +1,5 @@
 site = File.expand_path(ARGV.fetch(0) { abort 'usage: ruby scripts/check_site.rb SITE_DIRECTORY' })
-required = %w[index.html 404.html assets/app.js assets/styles.css data/commands.json]
+required = %w[index.html 404.html assets/app.js assets/styles.css data/commands.json data/features.json]
 missing = required.reject { |path| File.file?(File.join(site, path)) }
 abort "Missing static site files: #{missing.join(', ')}" unless missing.empty?
 
@@ -16,4 +16,3 @@ end
 
 abort errors.join("\n") unless errors.empty?
 puts "Checked #{html_files.length} HTML files in #{site}"
-

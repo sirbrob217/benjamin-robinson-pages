@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "generated_from": "v3.2.0 Preview",
+  "features": [
+    {
+      "key": "ambient-responses",
+      "name": "Ambient responses",
+      "category": "Entertainment",
+      "description": "Responds to selected phrases with jokes, replies, or emoji reactions.",
+      "details": "These lightweight responses are limited to supported channels and threads. Some are seasonal, and the full trigger list is intentionally left as a surprise.",
+      "availability": "The Boys™",
+      "server_keys": [
+        "the-boys"
+      ]
+    },
+    {
+      "key": "birthday-celebrations",
+      "name": "Birthday celebrations",
+      "category": "Community",
+      "description": "Posts configured birthday announcements and advance reminders.",
+      "details": "A configured celebration may include an announcement, an individual greeting, and a placeholder Discord event. Personal names and dates are not included in this public reference.",
+      "availability": "Selected Discord servers",
+      "server_keys": [
+        "the-boys",
+        "eternal-defiance"
+      ]
+    },
+    {
+      "key": "instagram-embed-fixes",
+      "name": "Instagram embed fixes",
+      "category": "Link Embeds",
+      "description": "Replies to supported Instagram links with an embed-friendly replacement.",
+      "details": "When the replacement embeds successfully, Ulfgar Bot suppresses the original embed. Wrap a link in Discord spoiler markers or angle brackets when you do not want it replaced.",
+      "availability": "Configured channels and threads",
+      "server_keys": [
+        "the-boys"
+      ]
+    },
+    {
+      "key": "recurring-event-automation",
+      "name": "Recurring-event automation",
+      "category": "Events",
+      "description": "Publishes weekly event announcements and maintains their interactive controls.",
+      "details": "Event posts can provide attendance choices and a Remind Me control. Reminder subscriptions continue across future occurrences until removed.",
+      "availability": "Selected Discord servers",
+      "server_keys": [
+        "the-boys",
+        "eternal-defiance"
+      ]
+    },
+    {
+      "key": "scheduled-event-reminders",
+      "name": "Scheduled-event reminders",
+      "category": "Events",
+      "description": "Publishes a reminder when a configured Discord scheduled event occurs that day.",
+      "details": "Birthday placeholder events are excluded. Reminder controls on an announcement may be used to request a personal notification.",
+      "availability": "The Boys™",
+      "server_keys": [
+        "the-boys"
+      ]
+    },
+    {
+      "key": "seasonal-and-calendar-posts",
+      "name": "Seasonal and calendar posts",
+      "category": "Entertainment",
+      "description": "Publishes selected holiday, weekday, and calendar-based messages or media.",
+      "details": "Supported holidays may also add a themed reaction to messages. Individual media schedules and surprise posts are intentionally not listed.",
+      "availability": "The Boys™",
+      "server_keys": [
+        "the-boys"
+      ]
+    },
+    {
+      "key": "server-artwork",
+      "name": "Server artwork",
+      "category": "Community",
+      "description": "Updates configured server icons, banners, and bot artwork for dates and events.",
+      "details": "Artwork can change daily or at selected times for holidays and community occasions. Manual artwork commands remain documented with their command families.",
+      "availability": "Selected Discord servers",
+      "server_keys": [
+        "the-boys",
+        "wednesday-gang"
+      ]
+    },
+    {
+      "key": "wednesday-reminders",
+      "name": "Wednesday reminders",
+      "category": "Events",
+      "description": "Posts weekly reminders for the configured Wednesday gathering.",
+      "details": "The reminder day follows reschedules and cancellations made through the Wednesday command family, and the associated server artwork follows the adjusted week.",
+      "availability": "Wednesday Gang",
+      "server_keys": [
+        "wednesday-gang"
+      ]
+    },
+    {
+      "key": "wordle-reminders",
+      "name": "Wordle reminders",
+      "category": "Games",
+      "description": "Posts a daily reminder and link for the community Wordle thread.",
+      "details": "The reminder appears automatically in the configured Wordle discussion.",
+      "availability": "The Boys™",
+      "server_keys": [
+        "the-boys"
+      ]
+    },
+    {
+      "key": "wow-dungeon-signups",
+      "name": "WoW dungeon signups",
+      "category": "Games",
+      "description": "Publishes recurring World of Warcraft dungeon signup posts.",
+      "details": "Use the role buttons on a signup post to join or leave as damage, healer, or tank. The displayed roster updates after each selection.",
+      "availability": "Eternal Defiance",
+      "server_keys": [
+        "eternal-defiance"
+      ]
+    }
+  ]
+}
