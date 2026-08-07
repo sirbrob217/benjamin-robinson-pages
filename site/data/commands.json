@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_from": "v3.1.1",
+  "generated_from": "v3.2.0 Preview",
   "server_aliases": [
     {
       "key": "all-installed-servers",
@@ -38,6 +38,21 @@
       "options": [],
       "subcommands": [],
       "details": "Open a message’s Apps menu and choose Remind Me to create a one-time reminder."
+    },
+    {
+      "path": "Spoiler",
+      "name": "Spoiler",
+      "category": "App Interactions",
+      "description": "Repost an existing message with its content hidden as a spoiler.",
+      "permission": "user",
+      "availability": "The Boys™",
+      "server_keys": [
+        "the-boys"
+      ],
+      "type": "message",
+      "options": [],
+      "subcommands": [],
+      "details": "Open a message’s Apps menu, choose Spoiler, and confirm the replacement."
     },
     {
       "path": "misc",
@@ -342,6 +357,18 @@
               "type": "string",
               "required": false,
               "max_length": 2048
+            },
+            {
+              "name": "late_button",
+              "description": "Add a Late attendance button (default false)",
+              "type": "boolean",
+              "required": false
+            },
+            {
+              "name": "absent_button",
+              "description": "Add an Absent attendance button (default false)",
+              "type": "boolean",
+              "required": false
             }
           ],
           "subcommands": []
@@ -542,6 +569,18 @@
               "max_length": 2048
             },
             {
+              "name": "late_button",
+              "description": "Add a Late attendance button (default false)",
+              "type": "boolean",
+              "required": false
+            },
+            {
+              "name": "absent_button",
+              "description": "Add an Absent attendance button (default false)",
+              "type": "boolean",
+              "required": false
+            },
+            {
               "name": "enabled",
               "description": "Enable or pause the schedule",
               "type": "boolean",
@@ -713,6 +752,18 @@
               "max_length": 2048
             },
             {
+              "name": "late_button",
+              "description": "Add a Late attendance button (default false)",
+              "type": "boolean",
+              "required": false
+            },
+            {
+              "name": "absent_button",
+              "description": "Add an Absent attendance button (default false)",
+              "type": "boolean",
+              "required": false
+            },
+            {
               "name": "enabled",
               "description": "Enable or pause the clone",
               "type": "boolean",
@@ -818,6 +869,62 @@
               "required": true,
               "min_length": 10,
               "max_length": 10
+            }
+          ],
+          "subcommands": []
+        },
+        {
+          "path": "recurring_event/move",
+          "name": "/recurring_event move",
+          "category": "Recurring Events",
+          "description": "Move one occurrence to a different local date.",
+          "permission": "admin",
+          "availability": "Selected Discord servers",
+          "server_keys": [
+            "the-boys",
+            "eternal-defiance"
+          ],
+          "type": "chat_input",
+          "options": [
+            {
+              "name": "id",
+              "description": "Schedule ID",
+              "type": "string",
+              "required": true,
+              "min_length": 12,
+              "max_length": 12
+            },
+            {
+              "name": "new_date",
+              "description": "New local date (YYYY-MM-DD)",
+              "type": "string",
+              "required": true,
+              "min_length": 10,
+              "max_length": 10
+            },
+            {
+              "name": "date",
+              "description": "Original local date (defaults to next)",
+              "type": "string",
+              "required": false,
+              "min_length": 10,
+              "max_length": 10
+            },
+            {
+              "name": "event_hour",
+              "description": "New event hour (0-23)",
+              "type": "integer",
+              "required": false,
+              "min_value": 0,
+              "max_value": 23
+            },
+            {
+              "name": "event_minute",
+              "description": "New event minute (0-59)",
+              "type": "integer",
+              "required": false,
+              "min_value": 0,
+              "max_value": 59
             }
           ],
           "subcommands": []

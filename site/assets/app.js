@@ -1,5 +1,6 @@
 const elements = {
   breadcrumb: document.querySelector('#breadcrumb'),
+  content: document.querySelector('#content'),
   documentation: document.querySelector('#documentation'),
   error: document.querySelector('#error-state'),
   familyList: document.querySelector('#family-list'),
@@ -13,8 +14,11 @@ const elements = {
 };
 
 let commands = [];
+let automaticFeatures = [];
 let documentationVersion = '';
 let serverAliases = new Map();
+
+if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
 
 function element(tagName, attributes = {}, text = null) {
   const node = document.createElement(tagName);
@@ -36,6 +40,16 @@ function familyUrl(path) {
   return `${url.pathname}${url.search}`;
 }
 
+function featureUrl(key) {
+  const url = new URL(window.location.href);
+  const serverKey = elements.serverFilter.value;
+  url.search = '';
+  url.hash = '';
+  url.searchParams.set('feature', key);
+  if (serverKey) url.searchParams.set('server', serverKey);
+  return `${url.pathname}${url.search}`;
+}
+
 function indexUrl() {
   const url = new URL(window.location.href);
   const serverKey = elements.serverFilter.value;
@@ -49,6 +63,10 @@ function selectedFamilyPath() {
   return new URLSearchParams(window.location.search).get('family');
 }
 
+function selectedFeatureKey() {
+  return new URLSearchParams(window.location.search).get('feature');
+}
+
 function selectedServerKey() {
   return new URLSearchParams(window.location.search).get('server');
 }
@@ -56,6 +74,11 @@ function selectedServerKey() {
 function commandMatchesServer(command, serverKey = elements.serverFilter.value) {
   if (!serverKey) return true;
   return command.server_keys.includes(serverKey) || command.server_keys.includes('all-installed-servers');
+}
+
+function featureMatchesServer(feature, serverKey = elements.serverFilter.value) {
+  if (!serverKey) return true;
+  return feature.server_keys.includes(serverKey) || feature.server_keys.includes('all-installed-servers');
 }
 
 function commandAnchor(path) {
@@ -156,7 +179,13 @@ function summaryTable(commandsToSummarize) {
   commandsToSummarize.forEach((command) => {
     const row = element('tr');
     const signatureCell = element('td', { className: 'summary-signature' });
-    signatureCell.append(element('a', { href: `#${commandAnchor(command.path)}` }, signature(command)));
+    signatureCell.append(
+      element(
+        'a',
+        { href: `#${commandAnchor(command.path)}`, 'data-documentation-route': '' },
+        signature(command)
+      )
+    );
     row.append(signatureCell, element('td', {}, command.description));
     body.append(row);
   });
@@ -170,9 +199,9 @@ function sectionHeading(text) {
 
 function renderFamily(command) {
   const objectKind = command.type === 'chat_input' ? 'Command family' : 'App interaction';
-  document.title = `${command.name} · Ulfgar Bot Command Reference`;
+  document.title = `${command.name} · Ulfgar Bot Reference`;
   elements.breadcrumb.replaceChildren(
-    element('a', { href: indexUrl() }, 'Index'),
+    element('a', { href: indexUrl(), 'data-documentation-route': '' }, 'Index'),
     document.createTextNode(' » '),
     element('span', {}, `${objectKind}: ${command.name}`)
   );
@@ -200,6 +229,29 @@ function renderFamily(command) {
   elements.documentation.replaceChildren(header, overview, summary, details);
 }
 
+function renderFeature(feature) {
+  document.title = `${feature.name} · Ulfgar Bot Reference`;
+  elements.breadcrumb.replaceChildren(
+    element('a', { href: indexUrl(), 'data-documentation-route': '' }, 'Index'),
+    document.createTextNode(' » '),
+    element('span', {}, `Automatic feature: ${feature.name}`)
+  );
+
+  const header = element('header', { className: 'object-header' });
+  header.append(element('p', { className: 'object-kind' }, 'Automatic feature'));
+  header.append(element('h1', {}, feature.name));
+  header.append(element('p', { className: 'defined-in' }, `${feature.category} · ${feature.availability}`));
+  header.append(serverPills(feature));
+
+  const overview = element('section', { className: 'doc-section' });
+  overview.append(sectionHeading('Overview'), element('p', {}, feature.description));
+
+  const behavior = element('section', { className: 'doc-section' });
+  behavior.append(sectionHeading('What to expect'), element('p', {}, feature.details));
+
+  elements.documentation.replaceChildren(header, overview, behavior);
+}
+
 function commandGroups() {
   const alphabetically = (left, right) => left.name.localeCompare(right.name, undefined, { sensitivity: 'base' });
   return {
@@ -217,7 +269,7 @@ function familyCards(group) {
     const card = element('article', { className: 'family-index-item' });
     const heading = element('h3');
     const commandCount = command.subcommands.length || 1;
-    heading.append(element('a', { href: familyUrl(command.path) }, command.name));
+    heading.append(element('a', { href: familyUrl(command.path), 'data-documentation-route': '' }, command.name));
     card.append(heading, element('p', {}, command.description));
     card.append(serverPills(command));
     card.append(element('small', {}, `${commandCount} documented command${commandCount === 1 ? '' : 's'}`));
@@ -227,12 +279,12 @@ function familyCards(group) {
 }
 
 function renderIndex() {
-  document.title = 'Ulfgar Bot Command Reference';
+  document.title = 'Ulfgar Bot Reference';
   elements.breadcrumb.replaceChildren(element('span', {}, 'Reference Index'));
 
   const header = element('header', { className: 'object-header' });
   header.append(element('p', { className: 'object-kind' }, 'Reference index'));
-  header.append(element('h1', {}, 'Ulfgar Bot Commands'));
+  header.append(element('h1', {}, 'Ulfgar Bot Reference'));
   const selectedServer = serverAliases.get(elements.serverFilter.value);
   const indexContext = selectedServer ? `${documentationVersion} · Available on ${selectedServer.alias}` : documentationVersion;
   header.append(element('p', { className: 'defined-in' }, indexContext));
@@ -251,7 +303,29 @@ function renderIndex() {
     element('p', {}, 'Each family groups related slash commands. Choose a family to see its subcommands, permissions, options, choices, and limits.'),
     familyCards(commandFamilies)
   );
-  elements.documentation.replaceChildren(header, interactionSection, commandSection);
+
+  const matchingFeatures = automaticFeatures.filter((feature) => featureMatchesServer(feature));
+  const featureSection = element('section', { className: 'doc-section prose' });
+  featureSection.append(
+    sectionHeading('Automatic Features'),
+    element('p', {}, 'These features respond to messages, publish scheduled posts, or maintain community information without requiring a slash command.'),
+    featureCards(matchingFeatures)
+  );
+  elements.documentation.replaceChildren(header, interactionSection, commandSection, featureSection);
+}
+
+function featureCards(features) {
+  const index = element('div', { className: 'family-index' });
+  features.forEach((feature) => {
+    const card = element('article', { className: 'family-index-item' });
+    const heading = element('h3');
+    heading.append(element('a', { href: featureUrl(feature.key), 'data-documentation-route': '' }, feature.name));
+    card.append(heading, element('p', {}, feature.description));
+    card.append(serverPills(feature));
+    card.append(element('small', {}, feature.category));
+    index.append(card);
+  });
+  return index;
 }
 
 function appendNavigationGroup(title, group, normalizedQuery, selected) {
@@ -265,7 +339,7 @@ function appendNavigationGroup(title, group, normalizedQuery, selected) {
   elements.familyList.append(element('li', { className: 'nav-group-title' }, title));
   matchingCommands.forEach((command) => {
     const item = element('li');
-    const link = element('a', { href: familyUrl(command.path) });
+    const link = element('a', { href: familyUrl(command.path), 'data-documentation-route': '' });
     if (command.path === selected) link.setAttribute('aria-current', 'page');
     link.append(element('span', { className: 'family-name' }, command.name));
     link.append(element('small', {}, command.category));
@@ -275,11 +349,36 @@ function appendNavigationGroup(title, group, normalizedQuery, selected) {
       const children = element('ul', { className: 'subcommand-list' });
       command.subcommands.forEach((subcommand) => {
         const child = element('li');
-        child.append(element('a', { href: `${familyUrl(command.path)}#${commandAnchor(subcommand.path)}` }, subcommand.name));
+        child.append(
+          element(
+            'a',
+            { href: `${familyUrl(command.path)}#${commandAnchor(subcommand.path)}`, 'data-documentation-route': '' },
+            subcommand.name
+          )
+        );
         children.append(child);
       });
       item.append(children);
     }
+    elements.familyList.append(item);
+  });
+}
+
+function appendFeatureNavigation(normalizedQuery, selected) {
+  const matchingFeatures = automaticFeatures.filter((feature) => {
+    const searchable = [feature.name, feature.category, feature.description, feature.details].join(' ').toLowerCase();
+    return featureMatchesServer(feature) && (!normalizedQuery || searchable.includes(normalizedQuery));
+  });
+  if (!matchingFeatures.length) return;
+
+  elements.familyList.append(element('li', { className: 'nav-group-title' }, 'Automatic features'));
+  matchingFeatures.forEach((feature) => {
+    const item = element('li');
+    const link = element('a', { href: featureUrl(feature.key), 'data-documentation-route': '' });
+    if (feature.key === selected) link.setAttribute('aria-current', 'page');
+    link.append(element('span', { className: 'family-name' }, feature.name));
+    link.append(element('small', {}, feature.category));
+    item.append(link);
     elements.familyList.append(item);
   });
 }
@@ -297,12 +396,69 @@ function populateServerFilter() {
 }
 
 function renderNavigation(query = '') {
-  const selected = selectedFamilyPath();
+  const selectedFamily = selectedFamilyPath();
+  const selectedFeature = selectedFeatureKey();
   const normalizedQuery = query.trim().toLowerCase();
   elements.familyList.replaceChildren();
   const { appInteractions, commandFamilies } = commandGroups();
-  appendNavigationGroup('App interactions', appInteractions, normalizedQuery, selected);
-  appendNavigationGroup('Command families', commandFamilies, normalizedQuery, selected);
+  appendNavigationGroup('App interactions', appInteractions, normalizedQuery, selectedFamily);
+  appendNavigationGroup('Command families', commandFamilies, normalizedQuery, selectedFamily);
+  appendFeatureNavigation(normalizedQuery, selectedFeature);
+}
+
+function renderNavigationAtCurrentScroll(query = elements.search.value) {
+  const scrollTop = elements.navPanel.scrollTop;
+  renderNavigation(query);
+  elements.navPanel.scrollTop = scrollTop;
+}
+
+function renderCurrentRoute() {
+  const selected = selectedFamilyPath();
+  const command = commands.find((candidate) => candidate.path === selected);
+  if (selected && !command) throw new Error(`unknown command family: ${selected}`);
+
+  const selectedFeature = selectedFeatureKey();
+  const feature = automaticFeatures.find((candidate) => candidate.key === selectedFeature);
+  if (selectedFeature && !feature) throw new Error(`unknown automatic feature: ${selectedFeature}`);
+  if (command && feature) throw new Error('select either a command family or an automatic feature');
+
+  if (command && commandMatchesServer(command)) renderFamily(command);
+  else if (feature && featureMatchesServer(feature)) renderFeature(feature);
+  else {
+    if (command || feature) {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('family');
+      url.searchParams.delete('feature');
+      url.hash = '';
+      window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}`);
+    }
+    renderIndex();
+  }
+}
+
+function scrollToRouteTarget(scrollTop = 0) {
+  const anchor = window.location.hash ? document.getElementById(window.location.hash.slice(1)) : null;
+  if (anchor) anchor.scrollIntoView();
+  else window.scrollTo({ top: scrollTop, left: 0, behavior: 'auto' });
+}
+
+function routeState(documentScrollTop = window.scrollY) {
+  return {
+    documentScrollTop,
+    navigationScrollTop: elements.navPanel.scrollTop
+  };
+}
+
+function navigateWithinDocumentation(target) {
+  window.history.replaceState(routeState(), '', window.location.href);
+  const nextState = routeState(0);
+  window.history.pushState(nextState, '', target);
+  renderCurrentRoute();
+  renderNavigationAtCurrentScroll();
+  elements.navPanel.scrollTop = nextState.navigationScrollTop;
+  elements.content.focus({ preventScroll: true });
+  scrollToRouteTarget();
+  closeNavigation();
 }
 
 function closeNavigation() {
@@ -312,37 +468,36 @@ function closeNavigation() {
 
 async function loadDocumentation() {
   try {
-    const response = await fetch('data/commands.json');
-    if (!response.ok) throw new Error(`command data returned ${response.status}`);
-    const data = await response.json();
+    const [commandResponse, featureResponse] = await Promise.all([
+      fetch('data/commands.json'),
+      fetch('data/features.json')
+    ]);
+    if (!commandResponse.ok) throw new Error(`command data returned ${commandResponse.status}`);
+    if (!featureResponse.ok) throw new Error(`automatic-feature data returned ${featureResponse.status}`);
+    const [data, featureData] = await Promise.all([commandResponse.json(), featureResponse.json()]);
     if (data.schema_version !== 1 || !Array.isArray(data.commands) || !Array.isArray(data.server_aliases)) {
       throw new Error('unsupported command data');
     }
+    if (featureData.schema_version !== 1 || !Array.isArray(featureData.features)) {
+      throw new Error('unsupported automatic-feature data');
+    }
+    if (featureData.generated_from !== data.generated_from) throw new Error('documentation versions do not match');
 
     commands = data.commands;
+    automaticFeatures = featureData.features;
     serverAliases = new Map(data.server_aliases.map((server) => [server.key, server]));
     populateServerFilter();
     documentationVersion = data.generated_from;
     elements.navVersion.textContent = documentationVersion;
-    elements.footerVersion.textContent = `Ulfgar Bot command documentation · ${documentationVersion}`;
+    elements.footerVersion.textContent = `Ulfgar Bot documentation · ${documentationVersion}`;
     renderNavigation();
 
-    const selected = selectedFamilyPath();
-    const command = commands.find((candidate) => candidate.path === selected);
-    if (selected && !command) throw new Error(`unknown command family: ${selected}`);
-    if (command && commandMatchesServer(command)) renderFamily(command);
-    else {
-      if (command) {
-        const url = new URL(window.location.href);
-        url.searchParams.delete('family');
-        url.hash = '';
-        window.history.replaceState({}, '', `${url.pathname}${url.search}`);
-      }
-      renderIndex();
-    }
+    renderCurrentRoute();
+    window.history.replaceState(routeState(), '', window.location.href);
 
     elements.loading.hidden = true;
     elements.documentation.hidden = false;
+    requestAnimationFrame(() => scrollToRouteTarget(window.history.state?.documentScrollTop || 0));
   } catch (error) {
     console.error(error);
     elements.loading.hidden = true;
@@ -352,21 +507,24 @@ async function loadDocumentation() {
   }
 }
 
-elements.search.addEventListener('input', (event) => renderNavigation(event.target.value));
+elements.search.addEventListener('input', (event) => renderNavigationAtCurrentScroll(event.target.value));
 elements.serverFilter.addEventListener('change', () => {
   const url = new URL(window.location.href);
   if (elements.serverFilter.value) url.searchParams.set('server', elements.serverFilter.value);
   else url.searchParams.delete('server');
 
   const selectedCommand = commands.find((command) => command.path === selectedFamilyPath());
+  const selectedFeature = automaticFeatures.find((feature) => feature.key === selectedFeatureKey());
   if (selectedCommand && commandMatchesServer(selectedCommand)) renderFamily(selectedCommand);
+  else if (selectedFeature && featureMatchesServer(selectedFeature)) renderFeature(selectedFeature);
   else {
     url.searchParams.delete('family');
+    url.searchParams.delete('feature');
     url.hash = '';
     renderIndex();
   }
-  window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
-  renderNavigation(elements.search.value);
+  window.history.replaceState(routeState(), '', `${url.pathname}${url.search}${url.hash}`);
+  renderNavigationAtCurrentScroll();
 });
 elements.navToggle.addEventListener('click', () => {
   const open = elements.navPanel.classList.toggle('nav-panel--open');
@@ -374,5 +532,22 @@ elements.navToggle.addEventListener('click', () => {
 });
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeNavigation();
+});
+document.addEventListener('click', (event) => {
+  const link = event.target.closest?.('a[data-documentation-route]');
+  if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+  const target = new URL(link.href);
+  if (target.origin !== window.location.origin || target.pathname !== window.location.pathname) return;
+
+  event.preventDefault();
+  navigateWithinDocumentation(target);
+});
+window.addEventListener('popstate', (event) => {
+  renderCurrentRoute();
+  renderNavigationAtCurrentScroll();
+  elements.navPanel.scrollTop = event.state?.navigationScrollTop || 0;
+  scrollToRouteTarget(event.state?.documentScrollTop || 0);
+  closeNavigation();
 });
 loadDocumentation();
