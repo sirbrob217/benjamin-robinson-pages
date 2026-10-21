@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_from": "v3.2.0 Preview",
+  "generated_from": "v3.2.0",
   "features": [
     {
       "key": "ambient-responses",
